@@ -1,0 +1,1 @@
+# Simple zsh script logging
