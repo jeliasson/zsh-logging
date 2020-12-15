@@ -6,7 +6,9 @@ This is a simple logging script compatible with `zsh`. See [example.sh](example.
 
 - Timestamps
 - Colorful messages with propper indents
-- Pipe output to log file
+- Pipe output to log file (`logs/logger.log`)
+- Handy logging functions (`DEBUG`, `INFO`, `SUCCESS`, `WARN`, `ERROR`)
+- Debugging of function calls (`ENTRY` and `EXIT`)
 
 ### Output
 

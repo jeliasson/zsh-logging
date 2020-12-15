@@ -10,13 +10,16 @@ SCRIPTENTRY
 # Dummy functions
 #############################################################
 
-function SOMETHING_FANCY() {
+function DIG_PIRATE_GOLD() {
   ENTRY   # We add "ENTRY" in top of every function
 
-  INFO "Running something fancy..."
+  INFO    "Digging for pirate gold..."
+  DEBUG   "Searching on island: Hisingen"
+  
   sleep 2
-  WARN "This is taking a longer time than expected"
-  SUCCESS "We successfully ran something fancy..."
+
+  WARN    "This is taking a longer time than expected..."
+  SUCCESS "We successfully got some pirate gold!"
 
   EXIT  # We add "EXIT" in end of every function
 }
@@ -24,8 +27,8 @@ function SOMETHING_FANCY() {
 function GET_HOSTNAME() {
   ENTRY   # We add "ENTRY" in top of every function
 
-  INFO "Getting hosting..."
-  INFO "Hostname is: $(hostname)"
+  INFO    "Getting hosting..."
+  INFO    "Hostname is: $(hostname)"
 
   EXIT  # We add "EXIT" in end of every function
 }
@@ -33,10 +36,10 @@ function GET_HOSTNAME() {
 #############################################################
 # Main script
 #############################################################
-INFO "Starting program"
-SOMETHING_FANCY
+INFO      "Starting program"
+DIG_PIRATE_GOLD
 GET_HOSTNAME
-ERROR "I'm done but I'm going to show an error instead"
+ERROR      "I'm done but I'm going to show an error instead"
 
 # Script exit (run as late as possible in the script)
 SCRIPTEXIT
