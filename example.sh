@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # Include logging scripts
-source ./include/logging.sh
+source ./includes/logging.sh
 
 # Script entry
 SCRIPTENTRY
