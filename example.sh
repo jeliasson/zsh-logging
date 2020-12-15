@@ -11,23 +11,23 @@ SCRIPTENTRY
 #############################################################
 
 function SOMETHING_FANCY() {
-  ENTRY
+  ENTRY   # We add "ENTRY" in top of every function
 
   INFO "Running something fancy..."
   sleep 2
   WARN "This is taking a longer time than expected"
   SUCCESS "We successfully ran something fancy..."
 
-  EXIT
+  EXIT  # We add "EXIT" in end of every function
 }
 
 function GET_HOSTNAME() {
-  ENTRY
+  ENTRY   # We add "ENTRY" in top of every function
 
   INFO "Getting hosting..."
   INFO "Hostname is: $(hostname)"
 
-  EXIT
+  EXIT  # We add "EXIT" in end of every function
 }
 
 #############################################################
