@@ -1,5 +1,5 @@
 #!/bin/zsh
-
+ 
 # Script log
 SCRIPT_LOG_PATH="./logs"
 SCRIPT_LOG_FILE="logger.log"
@@ -9,19 +9,19 @@ SCRIPT_LOG=${SCRIPT_LOG_PATH}/${SCRIPT_LOG_FILE}
 
 # Make directory and log file
 mkdir -p "${SCRIPT_LOG_PATH}"
-touch "${SCRIPT_LOG_PATH}"/${SCRIPT_LOG_FILE}
+touch ${SCRIPT_LOG_PATH}/${SCRIPT_LOG_FILE}
 
 function SCRIPTENTRY() {
- script_name=$(basename "$0")
- script_name="${script_name%.*}"
- echo -e "\e[1;30;40m[$(date)]\e[0m \e[0;35;40m[DEBUG]\e[0m \e[1;30;40m> $script_name ${funcstack[0]}\e[0m" | tee -a "$SCRIPT_LOG"
+ SCRIPT_NAME=$(basename "$0")
+ SCRIPT_NAME="${SCRIPT_NAME%.*}"
+ echo -e "\e[1;30;40m[$(date)]\e[0m \e[0;35;40m[DEBUG]\e[0m \e[1;30;40m> $SCRIPT_NAME ${funcstack[0]}\e[0m" | tee -a "$SCRIPT_LOG"
 }
 export SCRIPTENTRY
 
 function SCRIPTEXIT() {
- script_name=$(basename "$0")
- script_name="${script_name%.*}"
- echo -e "\e[1;30;40m[$(date)]\e[0m \e[0;35;40m[DEBUG]\e[0m \e[1;30;40m< $script_name ${funcstack[0]}\e[0m" | tee -a "$SCRIPT_LOG"
+ SCRIPT_NAME=$(basename "$0")
+ SCRIPT_NAME="${SCRIPT_NAME%.*}"
+ echo -e "\e[1;30;40m[$(date)]\e[0m \e[0;35;40m[DEBUG]\e[0m \e[1;30;40m< $SCRIPT_NAME ${funcstack[0]}\e[0m" | tee -a "$SCRIPT_LOG"
 }
 export SCRIPTEXIT
 

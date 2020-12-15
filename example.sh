@@ -1,12 +1,15 @@
 #!/bin/zsh
 
-# Include logging scripts
+# Include our logging script
 source ./includes/logging.sh
 
-# Script entry
+# Script entry (run as early as possible after include)
 SCRIPTENTRY
 
-# Dummy function
+#############################################################
+# Dummy functions
+#############################################################
+
 function SOMETHING_FANCY() {
   ENTRY
 
@@ -18,21 +21,22 @@ function SOMETHING_FANCY() {
   EXIT
 }
 
-# Dummy function
 function GET_HOSTNAME() {
   ENTRY
 
   INFO "Getting hosting..."
-  SUCCESS "Hostname is: $(hostname)"
+  INFO "Hostname is: $(hostname)"
 
   EXIT
 }
 
-# Our application
+#############################################################
+# Main script
+#############################################################
 INFO "Starting program"
 SOMETHING_FANCY
 GET_HOSTNAME
 ERROR "I'm done but I'm going to show an error instead"
 
-# Script exit
+# Script exit (run as late as possible in the script)
 SCRIPTEXIT
