@@ -1,4 +1,4 @@
-name: "📝 Pull Request"
+name: "🧪 Test"
 
 on:
   push:
@@ -10,11 +10,16 @@ on:
 
 jobs:
   test:
-    name: "Test"
+    name: "🧪 Test"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y zsh
 
       - name: "Run example"
         run: |
