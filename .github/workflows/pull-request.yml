@@ -1,0 +1,21 @@
+name: "📝 Pull Request"
+
+on:
+  push:
+    branches:
+      - feature/**
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  test:
+    name: "Test"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: "Run example"
+        run: |
+          ./example.sh
