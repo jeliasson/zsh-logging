@@ -15,7 +15,7 @@ This is a simple logging script compatible with `/bin/zsh`. See [`example.sh`](e
 
 ### Todo
 
-- [ ] Strip off terminal colors from output log file
+- [x] Strip off terminal colors from output log file
 - [ ] Pass in custom date format as argument
 - [ ] Create color variables in every function
 
