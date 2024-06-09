@@ -4,9 +4,8 @@ on:
   push:
     branches:
       - feature/**
+      
   pull_request:
-    types:
-      - opened
 
 jobs:
   test:
@@ -21,6 +20,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y zsh
 
-      - name: "Run example"
+      - name: Run example
         run: |
           ./example.sh
+
+      - name: Print logger.log
+        run: |
+          cat ./logs/logger.log
