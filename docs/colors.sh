@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 # This script will simply print a table of available colors
 # https://askubuntu.com/questions/27314/script-to-display-all-terminal-colors
