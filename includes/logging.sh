@@ -1,75 +1,66 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
-# Script log
-SCRIPT_LOG_PATH="./logs"
-SCRIPT_LOG_FILE="logger.log"
+# Script log (overridable via environment)
+SCRIPT_LOG_PATH="${SCRIPT_LOG_PATH:-./logs}"
+SCRIPT_LOG_FILE="${SCRIPT_LOG_FILE:-logger.log}"
 
 # Scripts log
-SCRIPT_LOG=${SCRIPT_LOG_PATH}/${SCRIPT_LOG_FILE}
+SCRIPT_LOG="${SCRIPT_LOG_PATH}/${SCRIPT_LOG_FILE}"
 
 # Make directory and log file
 mkdir -p "${SCRIPT_LOG_PATH}"
-touch ${SCRIPT_LOG_PATH}/${SCRIPT_LOG_FILE}
+touch "${SCRIPT_LOG}"
 
 function strip_ansi() {
     sed 's/\x1b\[[0-9;]*m//g'
 }
 
+function _log() {
+    local color="$1"
+    local level="$2"
+    local msg="$3"
+    local line
+    line=$(printf "\e[2;37m[%s]\e[0m \e[%sm%-9s\e[0m %s" "$(date)" "$color" "[$level]" "$msg")
+    printf '%s\n' "$line"
+    printf '%s\n' "$line" | strip_ansi >> "$SCRIPT_LOG"
+}
+
 function SCRIPTENTRY() {
     SCRIPT_NAME=$(basename "$0")
     SCRIPT_NAME="${SCRIPT_NAME%.*}"
-    printf "\e[1;30;40m[%s]\e[0m \e[0;35;40m[DEBUG]\e[0m \e[1;30;40m> %s %s\e[0m\n" "$(date)" "$SCRIPT_NAME" "${funcstack[0]}" | tee  >(strip_ansi >> "$SCRIPT_LOG")
+    _log "0;35;40" "DEBUG" "> $SCRIPT_NAME ${funcstack[1]}"
 }
-export SCRIPTENTRY
 
 function SCRIPTEXIT() {
     SCRIPT_NAME=$(basename "$0")
     SCRIPT_NAME="${SCRIPT_NAME%.*}"
-    printf "\e[1;30;40m[%s]\e[0m \e[0;35;40m[DEBUG]\e[0m \e[1;30;40m< %s %s\e[0m\n" "$(date)" "$SCRIPT_NAME" "${funcstack[0]}" | tee  >(strip_ansi >> "$SCRIPT_LOG")
+    _log "0;35;40" "DEBUG" "< $SCRIPT_NAME ${funcstack[1]}"
 }
-export SCRIPTEXIT
 
 function ENTRY() {
-    printf "\e[1;30;40m[%s]\e[0m \e[0;35;40m[DEBUG]\e[0m \e[1;30;40m> %s\e[0m\n" "$(date)" "${funcstack[2]}" | tee  >(strip_ansi >> "$SCRIPT_LOG")
+    _log "0;35;40" "DEBUG" "> ${funcstack[2]}"
 }
-export ENTRY
 
 function EXIT() {
-    printf "\e[1;30;40m[%s]\e[0m \e[0;35;40m[DEBUG]\e[0m \e[1;30;40m< %s\e[0m\n" "$(date)" "${funcstack[2]}" | tee  >(strip_ansi >> "$SCRIPT_LOG")
+    _log "0;35;40" "DEBUG" "< ${funcstack[2]}"
 }
-export EXIT
 
 function INFO() {
-    local function_name="${FUNCNAME[1]}"
-    local msg="$1"
-    printf "\e[1;30;40m[%s]\e[0m \e[0;34;40m[INFO]\e[0m    %s\n" "$(date)" "$msg" | tee  >(strip_ansi >> "$SCRIPT_LOG")
+    _log "0;34;40" "INFO" "$1"
 }
-export INFO
 
 function SUCCESS() {
-    local function_name="${FUNCNAME[1]}"
-    local msg="$1"
-    printf "\e[1;30;40m[%s]\e[0m \e[3;32;40m[SUCCESS]\e[0m %s\n" "$(date)" "$msg" | tee  >(strip_ansi >> "$SCRIPT_LOG")
+    _log "3;32;40" "SUCCESS" "$1"
 }
-export SUCCESS
 
 function WARN() {
-    local function_name="${FUNCNAME[1]}"
-    local msg="$1"
-    printf "\e[1;30;40m[%s]\e[0m \e[0;33;40m[WARN]\e[0m    %s\n" "$(date)" "$msg" | tee  >(strip_ansi >> "$SCRIPT_LOG")
+    _log "0;33;40" "WARN" "$1"
 }
-export WARN
 
 function DEBUG() {
-    local function_name="${FUNCNAME[1]}"
-    local msg="$1"
-    printf "\e[1;30;40m[%s]\e[0m \e[0;35;40m[DEBUG]\e[0m   %s\n" "$(date)" "$msg" | tee  >(strip_ansi >> "$SCRIPT_LOG")
+    _log "0;35;40" "DEBUG" "$1"
 }
-export DEBUG
 
 function ERROR() {
-    local function_name="${FUNCNAME[1]}"
-    local msg="$1"
-    printf "\e[1;30;40m[%s]\e[0m \e[0;31;40m[ERROR]\e[0m   %s\n" "$(date)" "$msg" | tee  >(strip_ansi >> "$SCRIPT_LOG")
+    _log "0;31;40" "ERROR" "$1"
 }
-export ERROR
